@@ -79,11 +79,13 @@ func commandHandler(w http.ResponseWriter, r *http.Request) {
 
 	cmd := &slack.SlashCmd{}
 	if err := schema.NewDecoder().Decode(cmd, r.Form); err != nil {
+		log.Println("Error decoding schema")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	if cmd.Token != token {
 		log.Println(cmd.Token, token)
+		log.Println("Invalid token")
 		http.Error(w, "invalid token", http.StatusBadRequest)
 		return
 	}
