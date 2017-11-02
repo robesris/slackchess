@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"log"
 
 	"github.com/loganjspears/chess"
 	"github.com/loganjspears/slackchess/internal/chessutil"
