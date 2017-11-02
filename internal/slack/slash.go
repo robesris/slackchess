@@ -32,9 +32,12 @@ func SetStockfishPath(path string) {
 // SlashCmd represents a slack "Slash Command".  You can read more about
 // slash commands here: https://api.slack.com/slash-commands
 type SlashCmd struct {
+	Timestamp   string `schema:"timestamp"`
+	ServiceID   string `schema:"service_id"`
 	Token       string `schema:"token"`
 	TeamID      string `schema:"team_id"`
 	TeamDomain  string `schema:"team_domain"`
+	TriggerWord string `schema:"trigger_word"`
 	ChannelID   string `schema:"channel_id"`
 	ChannelName string `schema:"channel_name"`
 	UserID      string `schema:"user_id"`
