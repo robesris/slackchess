@@ -73,7 +73,7 @@ func commandHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	r.Form["text"] = strings.Replace(r.Form["text"], "chess ", "", 1)
+	r.Form["text"] = r.Form["text"][1,1]
 	log.Printf("slack slash command form %+v", r.Form)
 
 	cmd := &slack.SlashCmd{}
