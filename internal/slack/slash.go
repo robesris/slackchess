@@ -202,6 +202,7 @@ type userEntry struct {
 // userEntry.  If the text can't be parsed then returned userEntry's
 // type will be cmdUnknown.
 func userEntryFromText(text string) userEntry {
+	text = strings.Replace(text, "chess ", "")
 	parts := strings.Split(text, " ")
 	if len(parts) == 1 {
 		switch parts[0] {
