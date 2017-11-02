@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"os"
 
 	"github.com/gorilla/schema"
 	"github.com/loganjspears/chess"
@@ -22,6 +23,14 @@ func init() {
 	flag.StringVar(&url, "url", "", "root url for of the server")
 }
 
+func determineListenAddress() (string, error) {
+  port := os.Getenv("PORT")
+  if port == "" {
+    return "", fmt.Errorf("$PORT not set")
+  }
+  return ":" + port, nil
+}
+
 func main() {
 	flag.Parse()
 	if token == "" {
@@ -35,7 +44,13 @@ func main() {
 	http.HandleFunc("/", logHandler(upHandler))
 	http.HandleFunc("/command", logHandler(commandHandler))
 	http.HandleFunc("/board/", logHandler(boardImgHandler))
-	log.Fatal(http.ListenAndServe(":5000", nil))
+
+	addr, err := determineListenAddress()
+  if err != nil {
+    log.Fatal(err)
+  }
+
+	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
 func logHandler(handler http.HandlerFunc) http.HandlerFunc {
